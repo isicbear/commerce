@@ -1,0 +1,28 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /commerce
+spring:
+  data:
+    elasticsearch:
+      cluster-nodes: 182.92.118.11:9300
+      repositories:
+        enabled: true
+      cluster-name: commerce
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://182.92.118.11:3306/commerce?useSSL=false&serverTimezone=Hongkong&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: 123456
+  application:
+    name: microservice-commerce
+mybatis-plus:
+  mapper-locations: classpath:/com/business/commerce/mapper/*Mapper.xml
+  typeAliasesPackage: com.business.commerce.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+logging:
+  level:
+    com.business.commerce.dao: debug
