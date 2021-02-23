@@ -5,7 +5,9 @@ import com.business.commerce.common.AjaxResult;
 import com.business.commerce.common.BaseController;
 import com.business.commerce.common.SearchDto;
 import com.business.commerce.dto.TestDto;
+import com.business.commerce.kafka.KafkaProducer;
 import com.business.commerce.service.TestService;
+import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/test")
 public class TestController implements BaseController<TestDto> {
+
+    @Autowired
+    private KafkaProducer kafkaProducer;
+
     @Override
     public AjaxResult detail(String id) {
         return AjaxResult.SUCCESS("success",testService.getById(id));
@@ -59,6 +65,12 @@ public class TestController implements BaseController<TestDto> {
     @GetMapping("list")
     public AjaxResult list(){
         return AjaxResult.SUCCESS("success",testService.list());
+    }
+
+    @GetMapping("kafka")
+    public AjaxResult kafkaTest(){
+        kafkaProducer.send("send a kafka message");
+        return AjaxResult.SUCCESS();
     }
 
 }
