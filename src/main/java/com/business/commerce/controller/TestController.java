@@ -6,6 +6,7 @@ import com.business.commerce.common.BaseController;
 import com.business.commerce.common.SearchDto;
 import com.business.commerce.dto.TestDto;
 import com.business.commerce.kafka.KafkaProducer;
+import com.business.commerce.redis.RedisUtils;
 import com.business.commerce.service.TestService;
 import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,8 @@ public class TestController implements BaseController<TestDto> {
 
     @Autowired
     private TestService testService;
+    @Autowired
+    private RedisUtils redisUtils;
 
     @GetMapping("list")
     public AjaxResult list(){
@@ -71,6 +74,12 @@ public class TestController implements BaseController<TestDto> {
     public AjaxResult kafkaTest(){
         kafkaProducer.send("send a kafka message");
         return AjaxResult.SUCCESS();
+    }
+
+    @GetMapping("redis")
+    public AjaxResult redisTest(){
+        redisUtils.set("hello","world");
+        return AjaxResult.SUCCESS(redisUtils.get("hello").toString());
     }
 
 }

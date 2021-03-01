@@ -134,6 +134,10 @@ public class AjaxResult implements Serializable {
 	public final static AjaxResult ERROR(String msg) {
 		return new AjaxResult(ERROR_CODE, msg);
 	}
+
+	public final static AjaxResult NOLOGIN(String msg) {
+		return new AjaxResult(NOLOGIN_CODE, msg);
+	}
 	
 	/**
 	 * 手动抛出的异常

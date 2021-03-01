@@ -53,6 +53,17 @@ spring:
       #listner负责ack，每调用一次，就立即commit
       ack-mode: manual_immediate
       missing-topics-fatal: false
+  redis:
+    host: 182.92.118.11
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1m
+    timeout: 30000
 mybatis-plus:
   mapper-locations: classpath:/com/business/commerce/mapper/*Mapper.xml
   typeAliasesPackage: com.business.commerce.entity
